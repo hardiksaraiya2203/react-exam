@@ -16,7 +16,6 @@ root.render(
     <BrowserRouter>
       <Routing />
     </BrowserRouter>
-    <ContactManagement/>
   </React.StrictMode>
 );
 
