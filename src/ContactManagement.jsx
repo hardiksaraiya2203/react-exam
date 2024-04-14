@@ -1,76 +1,84 @@
-import React from "react";
-import { Formik, Field, Form, ErrorMessage } from "formik";
-import * as Yup from "yup";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+
+const validationSchema = yup.object({
+    firstName: yup.string().required("firstName must be filled"),
+    lastName: yup.string().required("lastName must be filled"),
+    email: yup.string().required("email is required").email('fill correctly'),
+});
 
 const ContactManagement = () => {
-  const initialValues = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-  };
-  const handleSubmit = (data) => {
-    console.log(data);
-  };
-  const validationSchema = () => {
-    return Yup.object().shape({
-      firstName: Yup.string().required("firstName is required"),
-      lastName: Yup.string().required("lastName is required"),
-      email: Yup.string().required("email is required").email('fill correctly'),
-    });
-  };
+  const formik = useFormik({
+    initialValues: {
+        firstName: "",
+        lastName: "",
+        contactNo: "",
+        email:"",
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      console.log(values);
+    },
+  });
+
   return (
     <div>
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-      >
-    
-        <Form>
-          <div className="form-group">
-            <label>firstName</label>
-            <Field name="firstName" type="text" className="form-control" />
-            <ErrorMessage
-              name="firstName"
-              component="div"
-              className="text-danger"
-            />
-          </div>
+      <form onSubmit={formik.handleSubmit}>
+        <TextField
+          fullWidth
+          id="email"
+          name="email"
+          label="Email"
+          value={formik.values.email}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.email && Boolean(formik.errors.email)}
+          helperText={formik.touched.email && formik.errors.email}
+        />
+        <TextField
+          fullWidth
+          id="firstName"
+          name="firstName"
+          label="firstName"
+          type="text"
+          value={formik.values.firstName}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.firstName && Boolean(formik.errors.firstName)}
+          helperText={formik.touched.firstName && formik.errors.firstName}
+        />
 
-          <div className="form-group">
-            <label htmlFor="lastName"> lastName </label>
-            <Field name="lastName" type="text" className="form-control" />
-            <ErrorMessage
-              name="lastName"
-              component="div"
-              className="text-danger"
-            />
-          </div>
+        <TextField
+          fullWidth
+          id="lastName"
+          name="lastName"
+          label="lastName"
+          type="text"
+          value={formik.values.lastName}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.lastName && Boolean(formik.errors.lastName)}
+          helperText={formik.touched.lastName && formik.errors.lastName}
+        />
 
-          <div className="form-group">
-            <label htmlFor="email"> Email </label>
-            <Field name="email" type="email" className="form-control" />
-            <ErrorMessage
-              name="email"
-              component="div"
-              className="text-danger"
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="phone"> phone </label>
-            <Field name="phone" type="tel" className="form-control" />
-          </div>
-
-
-          <div className="form-group">
-            <button type="submit" className="btn btn-primary">
-              Submit
-            </button>
-          </div>
-        </Form>
-      </Formik>
+        <TextField
+          fullWidth
+          id="contactNo"
+          name="contactNo"
+          label="contactNo"
+          type="tel"
+          value={formik.values.contactNo}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+        />
+        <Button color="primary" variant="contained" fullWidth type="submit">
+          Submit
+        </Button>
+      </form>
     </div>
   );
 };
