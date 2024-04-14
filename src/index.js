@@ -3,11 +3,20 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Products from './Products';
+import DisplayProduct from './DisplayProduct';
+import Contact from './Contact';
+import { BrowserRouter } from "react-router-dom";
+import Routing from './R';
+import ContactManagement from './ContactManagement';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <Routing />
+    </BrowserRouter>
+    <ContactManagement/>
   </React.StrictMode>
 );
 
