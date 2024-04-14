@@ -7,6 +7,7 @@ const Contact = () => {
     firstName: "",
     lastName: "",
     contactNo: "",
+    email:"",
   };
   const handleSubmit = (values) => {
     console.log(values);
@@ -15,6 +16,7 @@ const Contact = () => {
     return Yup.object().shape({
       firstName: Yup.string().required("firstName must be filled"),
       lastName: Yup.string().required("lastName must be filled"),
+      email: Yup.string().required("email is required").email('fill correctly'),
     });
   };
   return (
@@ -48,8 +50,13 @@ const Contact = () => {
           <div className="form-group">
             <label>contactNo</label>
             <Field name="contactNo" type="tel" className="form-control" />
+          </div>
+
+          <div className="form-group">
+            <label>email</label>
+            <Field name="email" type="email" className="form-control" />
             <ErrorMessage
-              name="contactNo"
+              name="email"
               component="div"
               className="text-danger"
             />

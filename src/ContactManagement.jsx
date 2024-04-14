@@ -16,7 +16,7 @@ const ContactManagement = () => {
     return Yup.object().shape({
       firstName: Yup.string().required("firstName is required"),
       lastName: Yup.string().required("lastName is required"),
-      email: Yup.string().required("email is required"),
+      email: Yup.string().required("email is required").email('fill correctly'),
     });
   };
   return (
